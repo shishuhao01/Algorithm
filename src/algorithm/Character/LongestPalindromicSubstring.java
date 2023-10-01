@@ -1,6 +1,7 @@
 package algorithm.Character;
 
 public class LongestPalindromicSubstring {
+    //判断最长回文串
     public static void main(String[] args) {
         String s ="fewvbabacababvgwrvcsdcxbvc";
 

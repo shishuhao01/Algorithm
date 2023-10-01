@@ -1,7 +1,9 @@
 package algorithm.Character;
 
 public class KmpAlgorithm {
+    //寻找字符匹配的位置
     public static void main(String[] args) {
+
         String str1 = "aaabaaabbbbaa";
 
         String str2 = "abcda";
@@ -28,6 +30,8 @@ public class KmpAlgorithm {
     }
 
     public static int[] KmpNext (String dest) {
+        //找Kmp next数组
+        
           int[] next = new int[dest.length()];
           for (int i = 1,j = 0; i < next.length; i++) {
               while (j > 0 && dest.charAt(i) != dest.charAt(j)) {

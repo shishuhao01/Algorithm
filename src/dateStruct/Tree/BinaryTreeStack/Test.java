@@ -15,23 +15,28 @@ public class Test {
         TreeNode treeNode10 = new TreeNode(10);
         TreeNode treeNode11= new TreeNode(11);
         TreeNode treeNode12 = new TreeNode(12);
-        treeNode1.left = treeNode2;
-        treeNode2.left = treeNode10;
-        treeNode1.right = treeNode3;
-        treeNode3.left = treeNode4;
-        treeNode3.right = treeNode5;
-        treeNode4.left = treeNode8;
-        treeNode4.right = treeNode9;
-        treeNode5.right = treeNode6;
-        treeNode5.left = treeNode7;
-        treeNode10.left = treeNode11;
-        treeNode6.left = treeNode12;
+        TreeNode treeNode13 = new TreeNode(13);
+        TreeNode treeNode14 = new TreeNode(14);
+        treeNode5.left = treeNode3;
+        treeNode3.left = treeNode2;
+        treeNode2.left = treeNode1;
+        treeNode3.right = treeNode4;
+        treeNode5.right = treeNode9;
+        treeNode9.left = treeNode7;
+//        treeNode7.right = treeNode8;
+        treeNode9.right = treeNode11;
+//        treeNode11.left = treeNode10;
+//        treeNode11.right = treeNode12;
+//        treeNode2.right = treeNode13;
+
 
 
         Tree tree = new Tree();
+        tree.inOrderUnRecur(treeNode5);
+        System.out.println();
 
-        System.out.println(tree.getMaxBreathLayer2(treeNode1));
 
+        System.out.println(tree.isFullBinaryTree(treeNode5));
 
 
     }

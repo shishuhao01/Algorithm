@@ -1,5 +1,7 @@
 package dateStruct.Tree.BinaryTreeStack;
 
+import algorithm.leetcode.easy.ReverseCharacter;
+
 import java.util.*;
 
 public class Tree {
@@ -206,6 +208,207 @@ public class Tree {
         }
         return max;
     }
+
+    //判断是否二叉排序树(递归)  （搜索二叉树）
+    private static int preValue = Integer.MIN_VALUE;
+    public boolean isThreadedBinaryTreeRecur (TreeNode head) {
+        if (head == null) {
+            return true;
+        }
+        boolean isLeftTBT = isThreadedBinaryTreeRecur(head.left);
+
+        if (!isLeftTBT) {
+            return false;
+        }
+        if (head.value < preValue) {
+            return false;
+        }else {
+            preValue = head.value;
+        }
+        return isThreadedBinaryTreeRecur(head.right);
+    }
+
+
+    //判断是否二叉排序树(非递归)  （搜索二叉树）
+    public boolean isThreadedBinaryTreeUnRecur (TreeNode head) {
+        //中序遍历非递归
+        if (head == null) {
+            return true;
+        }
+        int preVal = Integer.MIN_VALUE;
+        Stack<TreeNode> stack = new Stack<>();
+        while (!stack.isEmpty() || head != null)
+            if (head != null) {
+                stack.push(head);
+                head = head.left;
+            } else {
+                head = stack.pop();
+                if (head.value <= preVal) {
+                    return false;
+                } else {
+                    preVal = head.value;
+                }
+                head = head.right;
+            }
+           return true;
+    }
+
+
+    // 第二种方法
+    public class ReturnType1 {
+        int max;
+        int min;
+        boolean isThreaded;
+
+        public ReturnType1(int max, int min, boolean isThreaded) {
+            this.max = max;
+            this.min = min;
+            this.isThreaded = isThreaded;
+        }
+    }
+    public ReturnType1 isThreaded (TreeNode head) {
+        if (head == null) {
+            return null;
+        }
+        ReturnType1 leftTree = isThreaded(head.left);
+        ReturnType1 rightTree = isThreaded(head.right);
+
+        int min = head.value;
+        int max = head.value;
+
+        if (leftTree != null) {
+            min = leftTree.min;
+        }
+
+        if (rightTree != null) {
+            max = rightTree.max;
+        }
+        boolean isBalanced = true;
+        if (leftTree != null && (!leftTree.isThreaded || head.value <= leftTree.max)) {
+            isBalanced = false;
+        }
+        if (rightTree != null && (!rightTree.isThreaded || head.value > rightTree.min)) {
+            isBalanced = false;
+        }
+        return new ReturnType1(max,min,isBalanced);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //判断是否为完全二叉树
+    public boolean isCompleteBinaryTree (TreeNode head) {
+        if (head == null) {
+            return true;
+        }
+        boolean flag = false; // 是一个标记 判断是否遇到第一个叶子节点
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.add(head);
+        while (!queue.isEmpty()) {
+            TreeNode temp = queue.poll();
+            TreeNode l = temp.left;
+            TreeNode r = temp.right;
+            if ( (r != null && l == null) || (flag && (r != null || l != null))) {
+                //不是完全二叉树的条件 （1） 一个节点右边的孩子不为空， 左边的孩子是空
+                //若发现了一个节点左孩子不为空，右孩子为空(或者左右孩子都为空) 则接下来遇到的节点都应该是孩子节点
+                //（2） 满足1的条件下 当出现一个节点不是左右孩子都空的情况 将flag 标记为true,接下来遇到的每一个节点都应该是孩子节点
+                return false;
+            }
+            if (l != null) {
+                queue.add(l);
+            }
+            if (r != null) {
+                queue.add(r);
+            }
+            if (l == null || r == null) {
+                flag = true;
+            }
+        }
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //判断一棵树是否为平衡二叉树
+    public boolean isBalanced (TreeNode head) {
+        return isBalanced1(head).isBalanced;
+    }
+    public class ReturnType2 {
+        public int height;
+        public boolean isBalanced;
+
+        public ReturnType2(int height, boolean isBalanced) {
+            this.height = height;
+            this.isBalanced = isBalanced;
+        }
+    }
+    public ReturnType2 isBalanced1(TreeNode head) {
+        if (head == null) {
+            return new ReturnType2(0,true);
+        }
+        ReturnType2 leftTree = isBalanced1(head.left);
+        ReturnType2 rightTree = isBalanced1(head.right);
+        int height = Math.max(leftTree.height, rightTree.height) + 1;
+        boolean isBalanced = (leftTree.isBalanced && rightTree.isBalanced) && Math.abs(leftTree.height - rightTree.height) < 2;
+        return new ReturnType2(height,isBalanced);
+    }
+
+
+
+
+    //判断一棵树是否为满二叉树    节点数 树的深度
+    public boolean isFullBinaryTree (TreeNode head) {
+        ReturnType3 rets = isFullBinaryTree1(head);
+        System.out.println(rets.height + "  "+ rets.nodes);
+
+        return rets.nodes == (1 << rets.height) - 1;
+
+    }
+
+    public class ReturnType3 {
+        int height;
+        int nodes;
+
+        public ReturnType3(int height, int nodes) {
+            this.height = height;
+            this.nodes = nodes;
+        }
+    }
+
+    public ReturnType3 isFullBinaryTree1 (TreeNode head){
+        if (head == null) {
+            return new ReturnType3(0,0);
+        }
+        ReturnType3 leftTree = isFullBinaryTree1(head.left);
+        ReturnType3 rightTree = isFullBinaryTree1(head.right);
+
+        int height = Math.max(leftTree.height,rightTree.height) + 1;
+        int nodes = leftTree.nodes + rightTree.nodes + 1;
+        return new ReturnType3(height,nodes);
+    }
+
+
 
 
 
