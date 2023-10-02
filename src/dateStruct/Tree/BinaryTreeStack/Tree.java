@@ -254,7 +254,7 @@ public class Tree {
     }
 
 
-    // 第二种方法
+    // 第三种方法
     public class ReturnType1 {
         int max;
         int min;
@@ -294,17 +294,6 @@ public class Tree {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     //判断是否为完全二叉树
     public boolean isCompleteBinaryTree (TreeNode head) {
         if (head == null) {
@@ -335,20 +324,6 @@ public class Tree {
         }
         return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //判断一棵树是否为平衡二叉树
     public boolean isBalanced (TreeNode head) {
@@ -407,9 +382,6 @@ public class Tree {
         int nodes = leftTree.nodes + rightTree.nodes + 1;
         return new ReturnType3(height,nodes);
     }
-
-
-
 
 
 }

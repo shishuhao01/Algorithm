@@ -3,6 +3,7 @@ package dateStruct.graph.search;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class Graph {
     public ArrayList<String> list;
@@ -55,16 +56,18 @@ public class Graph {
 
 
    public void deepFirstSearch (boolean[] isVisited, int v1) {
+       //深度优先遍历
        isVisited[v1] = true;
-       System.out.print(getByIndex(v1) + "==>");
-       int v2 = findFirstNeighbor(v1);
-
-       while (v2 != -1) {
-           if (!isVisited[v2]) {
-               deepFirstSearch(isVisited,v2);
+       System.out.print(getByIndex(v1)+"==>");
+       int next = findFirstNeighbor(v1);
+       while (next != -1) {
+           if (!isVisited[next]) {
+               deepFirstSearch(isVisited,next);
            }
-           v2 = findNextNeighbor(v1,v2);
+           next = findNextNeighbor(v1,next);
        }
+
+
    }
 
    public void deepFirstSearch () {
@@ -83,22 +86,23 @@ public class Graph {
 
 
   public void breathFirstSearch (boolean[] isVisited, int v1) {
-       isVisited[v1] = true;
-       System.out.print(getByIndex(v1) + "==>");
-       LinkedList<Integer> queue = new LinkedList<>();
-       queue.add(v1);
-       while (!queue.isEmpty()) {
-           int head = queue.poll();
-           int first = findFirstNeighbor(head);
-           while (first != -1) {
-               if (!isVisited[first]) {
-                   System.out.print(getByIndex(first) + "==>");
-                   isVisited[first] = true;
-                   queue.addLast(first);
-               }
-               first = findNextNeighbor(head,first);
-           }
-       }
+       // 广度优先遍历
+      isVisited[v1] = true;
+      System.out.print(getByIndex(v1)+"==>");
+      Queue<Integer> queue = new LinkedList<>();
+      queue.add(v1);
+      while (!queue.isEmpty()) {
+          int next = queue.poll();
+          int w = findFirstNeighbor(next);
+          while (w != -1) {
+              if (!isVisited[w]) {
+                  isVisited[w] = true;
+                  System.out.print(getByIndex(w)+"==>");
+                  queue.add(w);
+              }
+              w = findNextNeighbor(next,w);
+          }
+      }
   }
 
     public void breathFirstSearch () {
@@ -113,10 +117,6 @@ public class Graph {
 
 
 
-
-
-
-
-
+    //拓扑排序 解决所有点的问题，但是有的点是需要后来访问，
 
 }
