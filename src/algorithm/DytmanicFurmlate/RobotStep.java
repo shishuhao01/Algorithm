@@ -2,7 +2,7 @@ package algorithm.DytmanicFurmlate;
 
 import java.util.Arrays;
 
-public class day01 {
+public class RobotStep {
     public static void main(String[] args) {
 
         System.out.println(sway1(5,2,4,6));
@@ -19,18 +19,20 @@ public class day01 {
         if (rest == 0) {
             return cur == aim ? 1:0;
         }
-        if(cur == 1) {
+        if(cur == 1) { // 当前来到1位置，只能来到2位置
             return process1(N,2,aim,rest-1);
         }
-        if(cur == N) {
+        if(cur == N) { // 当前来到N位置，只能走N-1位置
             return process1(N,  N- 1,aim,rest - 1);
         }
+        //当前来到中间位置
         return process1(N, cur-1,aim,rest - 1) + process1(N, cur+1,aim,rest - 1);
     }
 
 
 
 
+    //动态规划精简版 记忆化搜索，将中间的值放在数组中 带入缓存结构中
     public static int sway2(int N,int start,int end,int Step) {
         int[][] dp =  new int[N+1][Step+1];
         for(int i = 0; i <= N; i++) {
@@ -60,6 +62,8 @@ public class day01 {
     }
 
 
+
+    //动态规划最终版
     public static int process3(int start, int end, int N, int Step) {
         int[][] dp = new int[N+1][Step+1];
         dp[end][0] = 1;

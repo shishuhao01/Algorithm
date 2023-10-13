@@ -2,7 +2,7 @@ package algorithm.recursion;
 
 import java.util.Arrays;
 
-public class day01 {
+public class RobotStep {
 
     public static void main(String[] args) {
 

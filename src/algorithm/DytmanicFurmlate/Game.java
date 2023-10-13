@@ -2,7 +2,7 @@ package algorithm.DytmanicFurmlate;
 
 import java.util.Arrays;
 
-public class day02 {
+public class Game {
     //两个人聪明绝顶，在一个数组中只能拿两头的数，求最大的
     public static void main(String[] args) {
         int[] arr = {1,100,1,2,5,6};
